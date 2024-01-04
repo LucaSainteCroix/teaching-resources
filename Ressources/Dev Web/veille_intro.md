@@ -16,6 +16,7 @@ Personnel :
 - Comment sépare t-on les composants d'un projet web, montrer quelques architectures web les plus communes (MVC...) avec exemple
 - Frameworks web en python ?
 - Qu'est-ce que le HTML et le CSS
+- Qu'est ce que le DOM ?
 - à quoi sert le CSS, comment lier un fichier CSS avec un fichier HTML ? Exemples de frameworks CSS
 - Qu'est-ce que le head et le body, que retrouve t-on dans chacun ?
 - Qu'entend t-on par responsive?
