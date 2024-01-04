@@ -1,4 +1,4 @@
-# Veille Dev Web Introduction
+# Veille Dev Web
 
 # Objectif
 Veille perso sur les questions communes (matin)
@@ -13,7 +13,7 @@ Personnel :
 - Les différentes méthodes http ? 
 - Codes de réponse HTTP ? Détailler les groupes et les plus connues
 - Frontend vs Backend vs Fullstack (objectifs, points communs, différences, technologies associées...)
-- Quelques architectures web les plus communes (MVC...) avec exemple
+- Comment sépare t-on les composants d'un projet web, montrer quelques architectures web les plus communes (MVC...) avec exemple
 - Frameworks web en python ?
 - Qu'est-ce que le HTML et le CSS
 - à quoi sert le CSS, comment lier un fichier CSS avec un fichier HTML ? Exemples de frameworks CSS
