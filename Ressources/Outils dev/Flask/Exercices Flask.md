@@ -20,8 +20,8 @@ Enfin, à partir de la question 5, y a de la nouveauté.
 
 ### Base de données
 
-5. Créer une base de données SQL contenant une table users avec comme colonnes : prenom, nom, sexe, pseudo.
-Modifier /test-formulaire pour que désormais à chaque fois qu'un utilisateur rentre ses informations, celles-ci soient ajoutées dans la base de donnée. Pour cela il faudra utiliser un client sql python pour se connecter à la base de donnée.
+5. Créer une base de données SQL contenant une table users avec comme colonnes : prenom, nom, sexe, pseudo et mot de passe hashé.
+Modifier /test-formulaire pour que désormais à chaque fois qu'un utilisateur rentre ses informations, celles-ci soient ajoutées dans la base de donnée. Pour cela il faudra utiliser sql-alchemy pour se lier à la base de donnée. Vous pouvez faire avec SQLite dans un premier temps, puis essayez de le faire avec PostgreSQL ou MySQL.
 Il faudra par ailleurs gérer le cas d’un pseudo déjà existant...
 
 6. Faire une page /utilisateurs-inscrits qui permet de lister tous les noms d'utilisateurs présents dans la base de donnée.
