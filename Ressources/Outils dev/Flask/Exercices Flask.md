@@ -34,7 +34,7 @@ Il faudra par ailleurs gérer le cas d’un pseudo déjà existant...
 
 9. Créer une page permettant d'afficher un graphique du prix du stock d'une entreprise dans le temps. Libre à vous d'utiliser les données récoltées grâce à la question 7 ou d'aller chercher autre part.
 
-10. Charger un modèle entrainé sur MNIST (dessins de chiffres à classer) et afficher la prédiction du modèle lorsque l'utilisateur charge une image via un formulaire.
+10. Charger un modèle entrainé sur MNIST (dessins de chiffres à classer) et afficher la prédiction du modèle lorsque l'utilisateur charge une image via un formulaire. https://github.com/kj7kunal/MNIST-Keras
 
 ### Pour aller plus loin (un peu de JS n'a jamais tué personne)
 
