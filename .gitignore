@@ -1,1 +1,4 @@
 Ressources/GenAI/langchain_brief/.env
+mlruns/
+mlflow.db
+Ressources/MLOps/mlops-zoomcamp/02-experiment-tracking/running-mlflow-examples/scenario-3-copy.ipynb
