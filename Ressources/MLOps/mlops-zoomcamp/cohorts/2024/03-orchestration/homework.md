@@ -1,16 +1,14 @@
 ## Homework
 
-Solution: https://www.loom.com/share/802c8c0b843a4d3bbd9dbea240c3593a
-
 The goal of this homework is to create a simple training pipeline, use mlflow to track experiments and register best model, but use Mage for it.
 
-We'll use [the same NYC taxi dataset](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page), the **Yellow** taxi data for March, 2023. 
+We'll use [the same NYC taxi dataset](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page), the **Yellow** taxi data for March, 2023.
 
 ## Question 1. Run Mage
 
-First, let's run Mage with Docker Compose. Follow the quick start guideline. 
+First, let's run Mage with Docker Compose. Follow the quick start guideline.
 
-What's the version of Mage we run? 
+What's the version of Mage we run?
 
 (You can see it in the UI)
 
@@ -19,7 +17,7 @@ What's the version of Mage we run?
 
 Now let's create a new project. We can call it "homework_03", for example.
 
-How many lines are in the created `metadata.yaml` file? 
+How many lines are in the created `metadata.yaml` file?
 
 - 35
 - 45
@@ -32,7 +30,7 @@ Let's create an ingestion code block.
 
 In this block, we will read the March 2023 Yellow taxi trips data.
 
-How many records did we load? 
+How many records did we load?
 
 - 3,003,766
 - 3,203,766
@@ -60,18 +58,18 @@ def read_dataframe(filename):
 
     categorical = ['PULocationID', 'DOLocationID']
     df[categorical] = df[categorical].astype(str)
-    
+
     return df
 ```
 
-Let's adjust it and apply to the data we loaded in question 3. 
+Let's adjust it and apply to the data we loaded in question 3.
 
-What's the size of the result? 
+What's the size of the result?
 
 
 - 2,903,766
 - 3,103,766
-- 3,316,216 
+- 3,316,216
 - 3,503,766
 
 ## Question 5. Train a model
@@ -84,7 +82,7 @@ We will now train a linear regression model using the same code as in homework 1
 
 Let's now use it in the pipeline. We will need to create another transformation block, and return both the dict vectorizer and the model.
 
-What's the intercept of the model? 
+What's the intercept of the model?
 
 Hint: print the `intercept_` field in the code block
 
@@ -93,11 +91,11 @@ Hint: print the `intercept_` field in the code block
 - 27.77
 - 31.77
 
-## Question 6. Register the model 
+## Question 6. Register the model
 
 The model is trained, so let's save it with MLFlow.
 
-If you run mage with docker-compose, stop it with Ctrl+C or 
+If you run mage with docker-compose, stop it with Ctrl+C or
 
 ```bash
 docker-compose down
@@ -158,14 +156,10 @@ Find the logged model, and find MLModel file. What's the size of the model? (`mo
 
 > Note: typically we do last two steps in one code block.
 
+## Question 7. Push your solution to GitHub
 
-## Submit the results
+Push your whole directory (the one parent to the docker-compose.yaml) to GitHub.
 
-* Submit your results here: https://courses.datatalks.club/mlops-zoomcamp-2024/homework/hw3
-* If your answer doesn't match options exactly, select the closest one.
+Submit your answers and the link to your github repository on Simplonline ;)
 
-
-
-
-
-
+Don't forget to put it in public mode so we can access it!
