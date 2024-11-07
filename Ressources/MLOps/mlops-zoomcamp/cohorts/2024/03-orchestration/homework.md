@@ -156,7 +156,15 @@ Find the logged model, and find MLModel file. What's the size of the model? (`mo
 
 > Note: typically we do last two steps in one code block.
 
-## Question 7. Push your solution to GitHub
+
+## Question 7. (Bonus) Plot Metrics
+
+Modify your code so that it calculates MAE, MSE, and RMSE metrics and logs them to mlflow.
+
+Fetch the logged metrics from MLFlow and plot them in a chart in your pipeline's dashboard.
+
+
+## Push your solution to GitHub
 
 Push your whole directory (the one parent to the docker-compose.yaml) to GitHub.
 
