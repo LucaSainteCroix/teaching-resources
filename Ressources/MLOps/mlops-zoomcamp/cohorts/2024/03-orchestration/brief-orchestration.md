@@ -1,4 +1,4 @@
-## Brief
+# Brief
 
 The goal of this brief is to create a simple training pipeline, use mlflow to track experiments and register best model, but use Mage for it.
 
@@ -157,7 +157,7 @@ Find the logged model, and find MLModel file. What's the size of the model? (`mo
 > Note: typically we do last two steps in one code block.
 
 
-## Question 7. (Bonus) Plot Metrics
+## Question 7. Plot Metrics
 
 Modify your code so that it calculates MAE, MSE, and RMSE metrics and logs them to mlflow.
 
