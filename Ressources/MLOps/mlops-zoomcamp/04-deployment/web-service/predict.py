@@ -2,8 +2,11 @@ import pickle
 
 from flask import Flask, request, jsonify
 
-with open('lin_reg.bin', 'rb') as f_in:
-    (dv, model) = pickle.load(f_in)
+
+def import_model(model_name):
+    with open(f'{model_name}.bin', 'rb') as f_in:
+        (dv, model) = pickle.load(f_in)
+    return dv, model
 
 
 def prepare_features(ride):
@@ -14,6 +17,7 @@ def prepare_features(ride):
 
 
 def predict(features):
+    dv, model = import_model('lin_reg')
     X = dv.transform(features)
     preds = model.predict(X)
     return float(preds[0])
