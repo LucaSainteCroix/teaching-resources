@@ -1,11 +1,11 @@
 # .github/workflows/deploy.yml
 
-name: Deploy Flask App
+name: Deploy single docker Flask App to Docker Hub
 
 on:
   push:
     paths:
-      - 'Ressources/Outils Dev/Flask/flask_exercises/**'   # Only run this workflow if there's a change in flask_exercises folder
+      - "Ressources/Outils Dev/Flask/flask_exercises/**"   # Only run this workflow if there's a change in flask_exercises folder
 defaults:
   run:
     working-directory: "Ressources/Outils Dev/Flask/flask_exercises"
