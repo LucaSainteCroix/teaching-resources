@@ -1,14 +1,18 @@
-# .github/workflows/deploy.yml
 
 name: Push single docker Flask App to Docker Hub
 
 on:
-  push:
-    paths:
-      - "Ressources/Outils\ Dev/Flask/flask_exercises/**"   # Only run this workflow if there's a change in flask_exercises folder
+  workflow_dispatch:
+    # inputs:
+    #   PROD_DATABASE_URI:
+    #     description: 'Prod database URI'
+    #     type: environment
+  # push:
+  #   paths:
+  #     - "Ressources/Outils Dev/Flask/flask_exercises/**"   # Only run this workflow if there's a change in flask_exercises folder
 defaults:
   run:
-    working-directory: "Ressources/Outils\ Dev/Flask/flask_exercises"
+    working-directory: "Ressources/Outils Dev/Flask/flask_exercises"
 
 jobs:
   build-and-push:
@@ -31,13 +35,13 @@ jobs:
       # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
       - name: Spin up containers for testing
         run: |
-          docker run -d -p 80:5000 --name flask_example_container flask_example:latest
+          docker run -d -p 80:5000 -e PROD_DATABASE_URI=${{ secrets.PROD_DATABASE_URI }} --name flask_example_container flask_example:latest
           # Optional: Wait or test
           sleep 10
           # At this point, you can run tests or confirm the containers are healthy
           # For example:
           docker ps
-          pytest
+          # pytest
 
       # (Optional) If you want to push images to a registry like DockerHub, do it here.
       # You need to set up secrets DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD in your repo settings.

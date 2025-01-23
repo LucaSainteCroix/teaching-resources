@@ -3,3 +3,7 @@ mlruns/
 mlflow.db
 Ressources/MLOps/mlops-zoomcamp/02-experiment-tracking/running-mlflow-examples/scenario-3-copy.ipynb
 Ressources/GenAI/langchain_brief/correction/output
+mlflow_backup.db
+Ressources/MLOps/mlops-mage
+Ressources/MLOps/mlops-zoomcamp/04-deployment/web-service-mlflow/.env
+.env
