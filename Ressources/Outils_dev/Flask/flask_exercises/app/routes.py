@@ -29,6 +29,9 @@ def register_routes(app):
         ]
         return render_template('index.html', title='Home', user=current_user, posts=posts)
 
+    @app.route('/health')
+    def health_check():
+        return jsonify({'status': 'healthy'}), 200
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():

@@ -15,14 +15,20 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: "Ressources/Outils_Dev/Flask/flask_exercises"
+    # defaults:
+    #   run:
+    #     shell: bash
+    #     working-directory: "Ressources/Outils_Dev/Flask/flask_exercises"
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: List directory structure
+        run: |
+          pwd
+          ls -la
+          find . -type d
 
       - name: Set up Python (optional, required if you do Python-based steps)
         uses: actions/setup-python@v3
@@ -31,6 +37,9 @@ jobs:
 
       - name: Build Docker image
         run: |
+          cd Ressources/Outils_Dev/Flask/flask_exercises || echo "Directory not found"
+          pwd
+          ls -la
           docker build . --tag flask_example:latest
 
       # The following step is optional if you just want to build and then push to a registry
