@@ -20,6 +20,7 @@ def upload_bin_to_azure(
     Returns:
         str: URL of the uploaded blob
     """
+
     # Get connection string from environment if not provided
     if connection_string is None:
         load_dotenv()
