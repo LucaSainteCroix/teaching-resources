@@ -5,7 +5,7 @@ name: Deploy Flask App + MySQL DB to Azure Container Services
 on:
   push:
     paths:
-      - 'Ressources/Outils Dev/Flask/flask_exercises/**'   # Only run this workflow if there's a change in flask_exercises folder
+      - 'Ressources/Outils_Dev/Flask/flask_exercises/**'   # Only run this workflow if there's a change in flask_exercises folder
 
 jobs:
   build-and-deploy:

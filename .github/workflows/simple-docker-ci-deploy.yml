@@ -9,10 +9,10 @@ on:
     #     type: environment
   # push:
   #   paths:
-  #     - "Ressources/Outils\ Dev/Flask/flask_exercises/**"   # Only run this workflow if there's a change in flask_exercises folder
+  #     - "Ressources/Outils_Dev/Flask/flask_exercises/**"   # Only run this workflow if there's a change in flask_exercises folder
 defaults:
   run:
-    working-directory: "Ressources/Outils\ Dev/Flask/flask_exercises"
+    working-directory: "Ressources/Outils_Dev/Flask/flask_exercises"
 
 jobs:
   build-and-push:
@@ -35,13 +35,15 @@ jobs:
       # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
       - name: Spin up containers for testing
         run: |
-          docker run -d -p 80:5000 -e PROD_DATABASE_URI=${{ secrets.PROD_DATABASE_URI }} --name flask_example_container flask_example:latest
+          docker run -d -p 5000:5000 -e PROD_DATABASE_URI=${{ secrets.PROD_DATABASE_URI }} --name flask_example_container flask_example:latest
           # Optional: Wait or test
-          sleep 10
-          # At this point, you can run tests or confirm the containers are healthy
-          # For example:
+          timeout 30 bash -c 'while ! curl -s http://localhost:5000/health; do sleep 1; done'
           docker ps
-          # pytest
+      # At this point, you can run tests or confirm the containers are healthy
+      # - name: Run tests
+      #   run: |
+      #     pip install pytest requests
+      #     pytest
 
       # (Optional) If you want to push images to a registry like DockerHub, do it here.
       # You need to set up secrets DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD in your repo settings.
@@ -53,8 +55,8 @@ jobs:
 
       - name: Push Docker images to registry
         run: |
-          docker tag flask_example:latest ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:latest
+          docker tag flask_example:latest ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:{{ github.sha }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:{{ github.sha }}
 
       # Additional steps for actual deployment to a server/cloud can go here.
       # For example, SSH to a remote host or use a cloud deployment action/service.
