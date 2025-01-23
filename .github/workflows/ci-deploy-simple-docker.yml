@@ -1,0 +1,56 @@
+# .github/workflows/deploy.yml
+
+name: Deploy Flask App
+
+on:
+  push:
+    paths:
+      - 'Ressources/Outils Dev/Flask/flask_exercises/**'   # Only run this workflow if there's a change in flask_exercises folder
+defaults:
+  run:
+    working-directory: "Ressources/Outils Dev/Flask/flask_exercises"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python (optional, required if you do Python-based steps)
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Build Docker image
+        run: |
+          docker build . --tag flask_example:latest
+
+      # The following step is optional if you just want to build and then push to a registry
+      # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
+      - name: Spin up containers for testing
+        run: |
+          docker run -d -p 80:5000 --name flask_example_container flask_example:latest
+          # Optional: Wait or test
+          sleep 10
+          # At this point, you can run tests or confirm the containers are healthy
+          # For example:
+          docker ps
+          pytest
+
+      # (Optional) If you want to push images to a registry like DockerHub, do it here.
+      # You need to set up secrets DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD in your repo settings.
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push Docker images to registry
+        run: |
+          docker tag flask_example:latest ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:latest
+
+      # Additional steps for actual deployment to a server/cloud can go here.
+      # For example, SSH to a remote host or use a cloud deployment action/service.
