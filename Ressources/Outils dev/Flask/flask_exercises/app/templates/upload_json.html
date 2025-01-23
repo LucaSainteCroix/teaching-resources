@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Upload or Paste JSON for Prediction</h1>
+<form action="{{ url_for('submit_json') }}" method="POST" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+
+  <p>
+    {{ form.json_file.label }}<br>
+    {{ form.json_file() }}
+    {% if form.json_file.errors %}
+  <ul class="errors">
+    {% for error in form.json_file.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  </p>
+
+  <p>
+    {{ form.json_text.label }}<br>
+    {{ form.json_text(rows=10, cols=50) }}
+    {% if form.json_text.errors %}
+  <ul class="errors">
+    {% for error in form.json_text.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  </p>
+
+  <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

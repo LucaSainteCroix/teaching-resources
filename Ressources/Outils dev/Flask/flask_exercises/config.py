@@ -1,22 +1,30 @@
 import os
 import pickle
-from credentials import db_password
+from dotenv import load_dotenv, find_dotenv
 
-db_credentials = pickle.load(open( "db_credentials.p", "rb" ))
+_ = load_dotenv(find_dotenv())
 
-db_password = db_credentials['password']
-db_username = db_credentials['username']
-db_server_address = 'localhost'
-db_port = '3306'
-db_name = 'flask_example'
-
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'ma_cle_aleatoire'
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-    #     'sqlite:///' + os.path.join(basedir, 'app.db')
-    
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        f'mysql://{db_username}:{db_password}@{db_server_address}:{db_port}/{db_name}'
+
+
+class ProductionConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get("PROD_DATABASE_URI")
+
+class DevelopmentConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DEV_DATABASE_URI")
+
+
+class TestingConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    TESTING = True
+    DEBUG = False
+    WTF_CSRF_ENABLED = False
+
+config_manager = {
+    "dev": DevelopmentConfig,
+    "test": TestingConfig,
+    "prod": ProductionConfig,
+}

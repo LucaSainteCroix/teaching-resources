@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: my_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  flask_app:
+    build:
+      context: .
+      dockerfile: prod.dockerfile  
+    container_name: my_flask_app_prod
+    depends_on:
+      - mysql_db
+    ports:
+      - "80:5000"
+    # If your Flask app needs environment variables for config, add them here
+    environment:
+      FLASK_ENV: production
+
+volumes:
+  db_data:

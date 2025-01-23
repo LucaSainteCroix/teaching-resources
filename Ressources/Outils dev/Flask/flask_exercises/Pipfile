@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+mysqlclient = "*"
+flask-wtf = "*"
+flask-login = "*"
+python-dotenv = "*"
+email-validator = "*"
+scikit-learn = "*"
+gunicorn = "*"
+pytest = "*"
+azure-storage-blob = "*"
+bcrypt = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
