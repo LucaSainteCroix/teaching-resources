@@ -10,13 +10,14 @@ on:
   # push:
   #   paths:
   #     - "Ressources/Outils_Dev/Flask/flask_exercises/**"   # Only run this workflow if there's a change in flask_exercises folder
-defaults:
-  run:
-    working-directory: "Ressources/Outils_Dev/Flask/flask_exercises"
+
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./Ressources/Outils_Dev/Flask/flask_exercises"
 
     steps:
       - name: Check out repository
