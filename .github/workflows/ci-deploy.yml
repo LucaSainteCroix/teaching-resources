@@ -1,6 +1,6 @@
 # .github/workflows/deploy.yml
 
-name: Deploy docker-compose Flask App + MySQL DB to Docker Hub
+name: Push docker-compose Flask App + MySQL DB to Docker Hub
 
 on:
   push:

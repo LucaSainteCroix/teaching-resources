@@ -1,6 +1,6 @@
 # .github/workflows/deploy.yml
 
-name: Deploy Flask App
+name: Deploy Flask App + MySQL DB to Azure Container Services
 
 on:
   push:

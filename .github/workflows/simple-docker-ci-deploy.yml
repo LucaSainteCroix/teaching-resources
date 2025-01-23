@@ -1,6 +1,6 @@
 # .github/workflows/deploy.yml
 
-name: Deploy single docker Flask App to Docker Hub
+name: Push single docker Flask App to Docker Hub
 
 on:
   push:
