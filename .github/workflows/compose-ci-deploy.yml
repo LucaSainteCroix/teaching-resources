@@ -25,6 +25,19 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.10'
+
+      # - name: Create environment file
+      #   run: |
+      #     echo "Creating .env file..."
+      #     touch .docker-env
+      #     echo 'MYSQL_ROOT_PASSWORD"="$MYSQL_ROOT_PASSWORD"' >> .docker-env
+      #     echo 'MYSQL_DATABASE="$MYSQL_DATABASE"' >> .docker-env
+      #     echo "Environment file created. Structure:"
+      #     cat .docker-env
+      #   env:
+      #     MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+      #     MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -34,28 +47,16 @@ jobs:
       - name: Install Docker Compose (if not already installed)
         run: sudo apt-get update && sudo apt-get install -y docker-compose
 
-      - name: Create environment file
-        run: |
-          echo "Creating .env file..."
-          touch .docker-env
-          echo 'MYSQL_ROOT_PASSWORD"="$MYSQL_ROOT_PASSWORD"' >> .docker-env
-          echo 'MYSQL_DATABASE="$MYSQL_DATABASE"' >> .docker-env
-          echo "Environment file created. Structure:"
-          cat .docker-env
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-
       # The following step is optional if you just want to build and then push to a registry
       # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
       - name: Build and spin up containers for testing
         run: |
           echo "Starting docker-compose build..."
-          docker-compose -f docker-compose.prod.yml --env-file .docker-env \
+          docker-compose -f docker-compose.prod.yml \
           build --no-cache || echo "Build failed with exit code $?"
 
           echo "Starting docker-compose up..."
-          docker-compose -f docker-compose.prod.yml --env-file .docker-env \
+          docker-compose -f docker-compose.prod.yml \
           up -d || echo "Up failed with exit code $?"
 
           echo "Waiting for containers to be healthy..."
@@ -78,6 +79,10 @@ jobs:
           echo "Testing Flask app..."
           # timeout 60 bash -c 'while [[ "$(curl -s http://localhost:80/health | grep -c \"status\":\"healthy\")" != "1" ]]; do sleep 1; done'
           docker-compose exec -T my_flask_app_prod pytest || echo "Tests failed with exit code $?"
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+
 
       # (Optional) If you want to push images to a registry like DockerHub, do it here.
       # You need to set up secrets DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD in your repo settings.
