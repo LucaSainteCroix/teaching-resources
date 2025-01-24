@@ -60,8 +60,8 @@ jobs:
 
       - name: Push Docker images to registry
         run: |
-          docker tag flask_example:latest ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:{{ github.sha }}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:{{ github.sha }}
+          docker tag flask_example:latest ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo:latest
 
       # Additional steps for actual deployment to a server/cloud can go here.
       # For example, SSH to a remote host or use a cloud deployment action/service.
