@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: mysql.dockerfile
     container_name: my_db
-    image: lucasaintecroix1/flask_example_repo/mysql:latest
+    image: lucasaintecroix1/flask_example_repo:mysql_db
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: prod.dockerfile
     container_name: my_flask_app_prod
-    image: lucasaintecroix1/flask_example_repo/flask_app:latest
+    image: lucasaintecroix1/flask_example_repo:flask_app
     depends_on:
       - mysql_db
     ports:
