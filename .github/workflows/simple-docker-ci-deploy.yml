@@ -37,7 +37,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          cd Ressources/Outils_Dev/Flask/flask_exercises || echo "Directory not found"
+          cd /home/runner/work/teaching-resources/teaching-resources/Ressources/Outils_dev/Flask/flask_exercises/ || echo "Directory not found"
           pwd
           ls -la
           docker build . --tag flask_example:latest
