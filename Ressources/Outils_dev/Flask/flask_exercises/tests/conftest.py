@@ -15,8 +15,6 @@ def app_context(request):
 
     app = create_app(config_name="test")
 
-    # db_manager.base.metadata.create_all(db_manager.engine)
-
        # Create application context
     with app.app_context():
         # Create all database tables
@@ -28,7 +26,7 @@ def app_context(request):
 
 
 @pytest.fixture(scope='function')
-def db_session(app_context):
+def db_session():
     """Provide a clean database session for each test.
 
     This fixture runs for each test function, creating a fresh database
@@ -77,9 +75,10 @@ def existing_user(db_session, user_details):
         email=user_details.test_email
     )
     db_session.add(user_model)
-    db_session.flush()
     db_session.commit()
     return user_model
+
+
 
 @pytest.fixture()
 def post_details():

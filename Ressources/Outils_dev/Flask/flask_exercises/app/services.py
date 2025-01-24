@@ -8,12 +8,15 @@ def create_user(form):
     hash = bcrypt.hashpw(form.password.data.encode(), bcrypt.gensalt())
     password_hash = hash.decode()
 
-    user = User(username=form.username.data,
-                email=form.email.data,
-                password_hash=password_hash)
+    if check_existing_user(form.username.data):
+        raise ValueError(f"User {form.username.data} already exists")
+    else:
+        user = User(username=form.username.data,
+                    email=form.email.data,
+                    password_hash=password_hash)
 
-    db.session.add(user)
-    db.session.commit()
+        db.session.add(user)
+        db.session.commit()
 
     return user
 

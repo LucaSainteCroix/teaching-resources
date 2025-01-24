@@ -38,6 +38,7 @@ class TestUserServices:
         assert user.email == "test@example.com"
         assert user.password_hash != "secret123"  # password is hashed
 
+
     def test_check_existing_user(app, existing_user):
         # Arrange: A user already in the DB
             # created by the existing_user fixture
@@ -48,6 +49,7 @@ class TestUserServices:
         # Assert: We should get the user object back
         assert found_user is not None
         assert found_user.username == "test_user"
+
 
     def test_check_non_existent_user(app):
         # Act: We look for a user that doesn't exist

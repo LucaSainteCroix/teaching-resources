@@ -6,8 +6,8 @@ services:
     container_name: my_db
     image: lucasaintecroix1/flask_example_repo:mysql_db
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD="super_secure_root_pwd"
+      - MYSQL_DATABASE="flask_example"
     ports:
       - "3307:3306"
     volumes:
