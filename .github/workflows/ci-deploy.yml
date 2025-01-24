@@ -34,27 +34,31 @@ jobs:
       - name: Install Docker Compose (if not already installed)
         run: sudo apt-get update && sudo apt-get install -y docker-compose
 
+      - name: Create environment file
+        run: |
+          echo "Creating .env file..."
+          echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> .docker-env
+          echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> .docker-env
+          echo "Environment file created. Structure (without values):"
+          cat .env | cut -d= -f1
+
       # The following step is optional if you just want to build and then push to a registry
       # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
       - name: Build and spin up containers for testing
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         run: |
           echo "Starting docker-compose build..."
-          docker-compose -f docker-compose.prod.yml build --no-cache || echo "Build failed with exit code $?"
+          docker-compose -f docker-compose.prod.yml --env-file .docker-env \
+          build --no-cache || echo "Build failed with exit code $?"
 
           echo "Starting docker-compose up..."
-          docker-compose -f docker-compose.prod.yml up -d || echo "Up failed with exit code $?"
+          docker-compose -f docker-compose.prod.yml --env-file .docker-env \
+          up -d --wait --wait-timeout 60 || echo "Up failed with exit code $?"
 
           echo "Checking container status..."
           docker ps -a
 
           echo "Checking container logs..."
           docker-compose -f docker-compose.prod.yml logs
-
-          echo "Waiting for services to be ready..."
-          sleep 20
 
           echo "Final container status:"
           docker ps
@@ -63,9 +67,8 @@ jobs:
           docker network ls
 
           echo "Testing Flask app health..."
-          curl -v http://localhost:5000/health || echo "Health check failed with exit code $?"
-          pipenv shell
-          pytest || echo "Tests failed with exit code $?"
+          timeout 60 bash -c 'while [[ "$(curl -s http://localhost:80/health | grep -c \"status\":\"healthy\")" != "1" ]]; do sleep 1; done'
+          docker-compose exec -T my_flask_app_prod pipenv shell && pytest || echo "Tests failed with exit code $?"
 
       # (Optional) If you want to push images to a registry like DockerHub, do it here.
       # You need to set up secrets DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD in your repo settings.
