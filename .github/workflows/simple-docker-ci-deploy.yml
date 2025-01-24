@@ -2,14 +2,14 @@
 name: Push single docker Flask App to Docker Hub
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch: # Triggers workflow manually
     # inputs:
     #   PROD_DATABASE_URI:
     #     description: 'Prod database URI'
     #     type: environment
-  # push:
-  #   paths:
-  #     - "Ressources/Outils_Dev/Flask/flask_exercises/**"   # Only run this workflow if there's a change in flask_exercises folder
+  push:
+    paths:
+      - 'Ressources/Outils_Dev/Flask/flask_exercises/**'   # Only run this workflow if there's a change in flask_exercises folder
 
 
 jobs:
