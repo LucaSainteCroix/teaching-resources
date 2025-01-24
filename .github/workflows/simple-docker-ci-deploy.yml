@@ -15,20 +15,14 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     shell: bash
-    #     working-directory: "Ressources/Outils_Dev/Flask/flask_exercises"
+    defaults:
+      run:
+        shell: bash
+        working-directory: "/home/runner/work/teaching-resources/teaching-resources/Ressources/Outils_dev/Flask/flask_exercises/"
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
-      - name: List directory structure
-        run: |
-          pwd
-          ls -la
-          find . -type d
 
       - name: Set up Python (optional, required if you do Python-based steps)
         uses: actions/setup-python@v3
@@ -37,10 +31,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          cd /home/runner/work/teaching-resources/teaching-resources/Ressources/Outils_dev/Flask/flask_exercises/ || echo "Directory not found"
-          pwd
-          ls -la
-          docker build . --tag flask_example:latest
+          docker build -t flask_example:latest -f prod.Dockerfile .
 
       # The following step is optional if you just want to build and then push to a registry
       # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
@@ -48,7 +39,7 @@ jobs:
         run: |
           docker run -d -p 5000:5000 -e PROD_DATABASE_URI=${{ secrets.PROD_DATABASE_URI }} --name flask_example_container flask_example:latest
           # Optional: Wait or test
-          timeout 30 bash -c 'while ! curl -s http://localhost:5000/health; do sleep 1; done'
+              timeout 60 bash -c 'while [[ "$(curl -s http://localhost:5000/health | grep -c \"status\":\"healthy\")" != "1" ]]; do sleep 1; done'
           docker ps
       # At this point, you can run tests or confirm the containers are healthy
       # - name: Run tests
