@@ -7,8 +7,8 @@ LABEL version="8.0"
 
 # Setting default environment variables
 # Note: These will be overridden by runtime environment variables if provided
-ENV MYSQL_ROOT_PASSWORD=default_password
-ENV MYSQL_DATABASE=default_db_name
+ENV MYSQL_ROOT_PASSWORD=super_secure_root_pwd
+ENV MYSQL_DATABASE=flask_example
 
 # Expose MySQL port
 # Note: This is purely documentational. You still need to map ports when running the container

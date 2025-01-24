@@ -17,14 +17,6 @@ class TestIntegrationModelUtils:
             pytest.skip("Azure credentials not available")
         return connection_string
 
-    @pytest.fixture # created and destroyed for each test
-    def blob_config(self):
-        """Configuration for the Azure blob"""
-        run_id = os.getenv("MLFLOW_BEST_RUN_ID")
-        return {
-            'container_name': 'lsc-mlflow',  # your actual container
-            'blob_path': f'mlartifacts/1/{run_id}/artifacts/model/model.pkl'  # your actual path
-        }
 
 
     def test_import_model_function(self, azure_credentials):
