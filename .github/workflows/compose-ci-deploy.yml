@@ -38,8 +38,8 @@ jobs:
         run: |
           echo "Creating .env file..."
           touch .docker-env
-          echo '"$MYSQL_ROOT_PASSWORD" > .docker-env'
-          echo '"$MYSQL_DATABASE" > .docker-env'
+          echo 'MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD' >> .docker-env
+          echo 'MYSQL_DATABASE=$MYSQL_DATABASE' >> .docker-env
           echo "Environment file created. Structure:"
           cat .docker-env
         env:
