@@ -26,17 +26,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      # - name: Create environment file
-      #   run: |
-      #     echo "Creating .env file..."
-      #     touch .docker-env
-      #     echo 'MYSQL_ROOT_PASSWORD"="$MYSQL_ROOT_PASSWORD"' >> .docker-env
-      #     echo 'MYSQL_DATABASE="$MYSQL_DATABASE"' >> .docker-env
-      #     echo "Environment file created. Structure:"
-      #     cat .docker-env
-      #   env:
-      #     MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-      #     MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+      - name: Create environment file
+        run: |
+          echo "Creating .env file..."
+          touch .docker-env
+          echo 'MYSQL_ROOT_PASSWORD"="$MYSQL_ROOT_PASSWORD"' >> .docker-env
+          echo 'MYSQL_DATABASE="$MYSQL_DATABASE"' >> .docker-env
+          echo "Environment file created. Structure:"
+          cat .docker-env
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
 
       - name: Install dependencies
         run: |
@@ -52,11 +52,11 @@ jobs:
       - name: Build and spin up containers for testing
         run: |
           echo "Starting docker-compose build..."
-          docker-compose -f docker-compose.prod.yml \
+          docker-compose -f docker-compose.prod.yml --env-file .docker-env \
           build --no-cache || echo "Build failed with exit code $?"
 
           echo "Starting docker-compose up..."
-          docker-compose -f docker-compose.prod.yml \
+          docker-compose -f docker-compose.prod.yml --env-file .docker-env \
           up -d || echo "Up failed with exit code $?"
 
           echo "Waiting for containers to be healthy..."
