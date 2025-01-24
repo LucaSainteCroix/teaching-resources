@@ -2,7 +2,7 @@
 name: Push single docker Flask App to Docker Hub
 
 on:
-  # workflow_dispatch: # Triggers workflow manually
+  workflow_dispatch: # Triggers workflow manually
     # inputs:
     #   PROD_DATABASE_URI:
     #     description: 'Prod database URI'
