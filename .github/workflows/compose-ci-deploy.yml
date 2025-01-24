@@ -38,10 +38,13 @@ jobs:
         run: |
           echo "Creating .env file..."
           touch .docker-env
-          echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> .docker-env
-          echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> .docker-env
+          echo '"$MYSQL_ROOT_PASSWORD" > .docker-env'
+          echo '"$MYSQL_DATABASE" > .docker-env'
           echo "Environment file created. Structure:"
           cat .docker-env
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
 
       # The following step is optional if you just want to build and then push to a registry
       # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
