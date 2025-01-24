@@ -53,7 +53,10 @@ jobs:
 
           echo "Starting docker-compose up..."
           docker-compose -f docker-compose.prod.yml --env-file .docker-env \
-          up -d --wait --wait-timeout 60 || echo "Up failed with exit code $?"
+          up -d || echo "Up failed with exit code $?"
+
+          echo "Waiting for containers to be healthy..."
+          timeout 60 bash -c 'until docker-compose ps | grep -q "Up"; do sleep 1; done'
 
           echo "Checking container status..."
           docker ps -a
