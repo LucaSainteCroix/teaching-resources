@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t flask_example:latest -f prod.Dockerfile .
+          docker build -t flask_example:latest -f prod.dockerfile .
 
       # The following step is optional if you just want to build and then push to a registry
       # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
