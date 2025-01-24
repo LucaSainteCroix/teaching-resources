@@ -10,6 +10,7 @@ def upload_bin_to_azure(
 ) -> str:
     """
     Upload a binary file to Azure Blob Storage.
+    
     Args:
         file_path: Path to the .bin file
         container_name: Name of the container in Azure Blob Storage

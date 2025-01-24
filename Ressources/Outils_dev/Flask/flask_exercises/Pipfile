@@ -9,7 +9,6 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 mysqlclient = "*"
 flask-wtf = "*"
-flask-login = "*"
 python-dotenv = "*"
 email-validator = "*"
 scikit-learn = "*"
@@ -17,6 +16,7 @@ gunicorn = "*"
 pytest = "*"
 azure-storage-blob = "*"
 bcrypt = "*"
+flask-login = "*"
 
 [dev-packages]
 

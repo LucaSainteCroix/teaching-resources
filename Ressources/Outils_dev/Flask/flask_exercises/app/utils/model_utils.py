@@ -44,8 +44,8 @@ def prepare_features(ride):
 
 
 def predict(features):
-    dv, model = import_model('lin_reg')
-    # dv, model = import_model_from_azure()
+    # dv, model = import_model('lin_reg')
+    dv, model = import_model_from_azure()
     X = dv.transform(features)
     preds = model.predict(X)
     return float(preds[0])

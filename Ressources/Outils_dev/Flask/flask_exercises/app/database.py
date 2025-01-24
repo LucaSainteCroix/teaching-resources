@@ -21,8 +21,8 @@ class DatabaseManager:
         self.create_scoped_session()
         self.base.query = self.session.query_property()
 
-        if app.config.get("TESTING"): # create the tables in the test database
-            self.base.metadata.create_all(self.engine)
+        # if app.config.get("TESTING"): # create the tables in the test database
+        #     self.base.metadata.create_all(self.engine)
 
 
     def create_engine(self, sqlalchemy_database_uri):
