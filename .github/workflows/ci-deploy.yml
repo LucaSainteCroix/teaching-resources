@@ -3,16 +3,19 @@
 name: Push docker-compose Flask App + MySQL DB to Docker Hub
 
 on:
+  workflow_dispatch: # Triggers workflow manually
   push:
     paths:
       - 'Ressources/Outils_Dev/Flask/flask_exercises/**'   # Only run this workflow if there's a change in flask_exercises folder
-defaults:
-  run:
-    working-directory: 'Ressources/Outils Dev/Flask/flask_exercises'
+
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: "/home/runner/work/teaching-resources/teaching-resources/Ressources/Outils_dev/Flask/flask_exercises/"
 
     steps:
       - name: Check out repository
@@ -26,18 +29,16 @@ jobs:
       - name: Install Docker Compose (if not already installed)
         run: sudo apt-get update && sudo apt-get install -y docker-compose
 
-      - name: Build Docker images
-        run: |
-          docker-compose build -f docker-compose.yml --tag flask_example:latest
-
       # The following step is optional if you just want to build and then push to a registry
       # or deploy somewhere else. This starts the containers in the GitHub runner for testing.
-      - name: Spin up containers for testing
+      - name: Build and spin up containers for testing
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         run: |
-          cd flask_app_folder
-          docker-compose up -d -f docker-compose.yml
+          docker-compose -f docker-compose.prod.yml up -d
           # Optional: Wait or test
-          sleep 30
+          sleep 20
           # At this point, you can run tests or confirm the containers are healthy
           # For example:
           docker ps
@@ -53,8 +54,8 @@ jobs:
 
       - name: Push Docker images to registry
         run: |
-          cd flask_app_folder
-          docker-compose push
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo/flask_app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask_example_repo/mysql_db:latest
 
       # Additional steps for actual deployment to a server/cloud can go here.
       # For example, SSH to a remote host or use a cloud deployment action/service.

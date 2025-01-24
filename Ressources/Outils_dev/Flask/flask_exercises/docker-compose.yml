@@ -14,6 +14,7 @@ services:
 
   flask_app:
     build: .  # Assumes your Dockerfile is in the same directory
+    image: flask_example_repo/flask_app:latest
     container_name: my_flask_app
     depends_on:
       - mysql_db
