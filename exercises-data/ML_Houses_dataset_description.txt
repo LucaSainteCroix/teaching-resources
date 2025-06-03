@@ -1,4 +1,3 @@
-
 MSSubClass: Identifies the type of dwelling involved in the sale.	
 
         20	1-STORY 1946 & NEWER ALL STYLES
@@ -32,10 +31,6 @@ MSZoning: Identifies the general zoning classification of the sale.
 LotFrontage: Linear feet of street connected to property
 
 LotArea: Lot size in square feet
-
-Pesos: The price of the house in Pesos
-
-WallMat: The material the walls are made of
 
 Street: Type of road access to property
 
@@ -405,10 +400,6 @@ Functional: Home functionality (Assume typical unless deductions are warranted)
        Sal	Salvage only
 		
 Fireplaces: Number of fireplaces
-
-ChimneyStyle: Identifies the material of the chimney
-
-RoofSurface: The surface of the roof in square feet
 
 FireplaceQu: Fireplace quality
 
